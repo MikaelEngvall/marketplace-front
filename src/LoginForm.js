@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const CreateAdForm = () => {
+const LoginForm = () => {
     const navigate = useNavigate();
 
     // State to manage form data
     const [formData, setFormData] = useState({
-        title: '',
-        description: '',
+        email: '',
+        password: '',
     });
 
     // Handle form input changes
@@ -24,51 +24,58 @@ const CreateAdForm = () => {
     const handleSubmit = async () => {
         try {
             const response = await axios.post(
-                'http://localhost:8080/advertisement?email=mikael@engvall.org',
+                'http://localhost:8080/user/login',
                 formData,
             );
+
+            // Assuming a successful response status is 2xx
             if (response.status >= 200 && response.status < 300) {
-                navigate('/adsList');
+                // Login successful
+                // Navigate to the create advertisement page or any other page
+                navigate('/create-ad');
             } else {
-                console.error('Failed to create advertisement:', response.statusText);
+                // Handle error scenarios
+                console.error('Login failed:', response.statusText);
             }
         } catch (error) {
-            console.error('Error creating advertisement:', error.message);
+            // Handle network or other errors
+            console.error('Error during login:', error.message);
         }
     };
 
     return (
         <div className="card">
             <div className="card-body">
-                <h5 className="card-title">Create Advertisement</h5>
+                <h5 className="card-title">Login</h5>
                 <form>
-                    {/* Title input field */}
+                    {/* Email input field */}
                     <div className="mb-3">
-                        <label htmlFor="title" className="form-label">Title</label>
+                        <label htmlFor="email" className="form-label">Email</label>
                         <input
-                            type="text"
+                            type="email"
                             className="form-control"
-                            id="title"
-                            name="title"
-                            value={formData.title}
+                            id="email"
+                            name="email"
+                            value={formData.email}
                             onChange={handleChange}
                         />
                     </div>
 
-                    {/* Description input field */}
+                    {/* Password input field */}
                     <div className="mb-3">
-                        <label htmlFor="description" className="form-label">Description</label>
-                        <textarea
+                        <label htmlFor="password" className="form-label">Password</label>
+                        <input
+                            type="password"
                             className="form-control"
-                            id="description"
-                            name="description"
-                            value={formData.description}
+                            id="password"
+                            name="password"
+                            value={formData.password}
                             onChange={handleChange}
-                        ></textarea>
+                        />
                     </div>
 
                     <button type="button" className="btn btn-primary" onClick={handleSubmit}>
-                        Create Ad
+                        Login
                     </button>
                 </form>
             </div>
@@ -76,4 +83,4 @@ const CreateAdForm = () => {
     );
 };
 
-export default CreateAdForm;
+export default LoginForm;

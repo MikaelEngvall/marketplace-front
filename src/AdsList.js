@@ -9,7 +9,7 @@ const AdsList = ({ updateTrigger }) => {
     const getAds = async () => {
         try {
             const response = await axios.get(
-                `${baseURL}/advertisement`
+                `${baseURL}/advertisement?sortedBy=title&sortOrder=asc`
             );
             if (response.status === 200) {
                 setAds(response.data);

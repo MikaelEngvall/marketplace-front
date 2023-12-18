@@ -15,6 +15,8 @@ import CreateAdForm from "./CreateAdForm";
 import DeleteAdForm from "./DeleteAdForm";
 import UpdateAdForm from "./UpdateAdForm";
 import BuyAd from "./BuyAd";
+import SignUpForm from "./SignUpForm";
+import LoginForm from "./LoginForm";
 
 const AppRoutes = () => {
   const [trigger, setTrigger] = useState(0);
@@ -32,6 +34,9 @@ const AppRoutes = () => {
             path="/"
             element={<Home />}
           />
+          <Route path="/signup" element={<SignUpForm />} />
+          <Route path="/login" element={<LoginForm />} />
+          <Route path="/create-ad" element={<CreateAdForm />} />
           <Route
             path="/adsList"
             element={<AdsList updateTrigger={handleSubmit} />}
